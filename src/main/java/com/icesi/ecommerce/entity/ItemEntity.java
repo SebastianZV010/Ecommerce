@@ -2,6 +2,8 @@ package com.icesi.ecommerce.entity;
 
 
 import java.util.Calendar;
+import java.util.List;
+
 import jakarta.validation.constraints.*;
 
 
@@ -41,4 +43,6 @@ public class ItemEntity {
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
     private BrandEntity brand;
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemCategoryEntity> itemCategories;
 }

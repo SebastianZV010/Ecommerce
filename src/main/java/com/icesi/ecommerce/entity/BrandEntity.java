@@ -23,6 +23,6 @@ public class BrandEntity {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 255)
     private String description;
 }

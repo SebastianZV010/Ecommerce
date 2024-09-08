@@ -4,6 +4,7 @@ import com.icesi.ecommerce.dto.ItemRequest;
 import com.icesi.ecommerce.dto.ItemResponse;
 import com.icesi.ecommerce.service.impl.ItemService;
 import com.icesi.ecommerce.service.interfaces.IItemService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class ItemController {
     private final IItemService itemService;
 
     @PostMapping
-    public ResponseEntity<ItemResponse> createItem(@RequestBody ItemRequest itemRequest) {
+    public ResponseEntity<ItemResponse> createItem(@Valid @RequestBody ItemRequest itemRequest) {
         ItemResponse createdItem = itemService.createItem(itemRequest);
         return new ResponseEntity<>(createdItem, HttpStatus.CREATED);
     }
@@ -49,4 +50,11 @@ public class ItemController {
         List<ItemResponse> items = itemService.getItemsByBrand(brandId);
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ItemResponse>> getItemsByCategory(@PathVariable Long categoryId) {
+        List<ItemResponse> items = itemService.getItemsByCategory(categoryId);
+        return new ResponseEntity<>(items, HttpStatus.OK);
+    }
+
 }

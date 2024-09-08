@@ -13,4 +13,5 @@ public interface IItemService {
     ItemResponse updateItem(Long id, ItemRequest itemRequest);
     void deleteItem(Long id);
     List<ItemResponse> getItemsByBrand(Long brandId);
+    List<ItemResponse> getItemsByCategory(Long categoryId);
 }

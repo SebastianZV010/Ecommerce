@@ -2,6 +2,7 @@ package com.icesi.ecommerce.dto;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 
 public record ItemResponse(
     Long id,
@@ -12,7 +13,8 @@ public record ItemResponse(
     String imageURL,
     Calendar createdAt,
     Calendar updatedAt,
-    String brandName
+    String brandName,
+    List<String> categoryNames
 
 ) implements Serializable{
     
