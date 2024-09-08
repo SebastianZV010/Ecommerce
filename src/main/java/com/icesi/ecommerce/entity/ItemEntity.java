@@ -1,6 +1,9 @@
 package com.icesi.ecommerce.entity;
 
 
+import java.util.Calendar;
+import jakarta.validation.constraints.*;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +18,25 @@ public class ItemEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UniqueID")
+    @Column(name = "id")
     private Long id;
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
+    @Column(name = "description")
+    @Size(max = 100)
+    private String description;
+    @DecimalMin(value = "0.01")
+    @Digits(integer = 10, fraction = 2)
+    @Column(name = "price", nullable = false)
+    private Double price;
+    @Min(value = 0)
+    @Column(name = "stockQuantity", nullable = false)
+    private Integer stockQuantity;
+    @Column(name = "imageURL")
+    private String imageURL;
+    @Column(name = "createdAt", nullable = false, updatable = false)
+    private Calendar createdAt;
+    @Column(name = "updatedAt")
+    private Calendar updatedAt;
+
 }
