@@ -25,8 +25,6 @@ public class ItemEntity {
     @Column(name = "description")
     @Size(max = 100)
     private String description;
-    @DecimalMin(value = "0.01")
-    @Digits(integer = 10, fraction = 2)
     @Column(name = "price", nullable = false)
     private Double price;
     @Min(value = 0)

@@ -5,7 +5,9 @@ import org.mapstruct.ReportingPolicy;
 
 import com.icesi.ecommerce.dto.ItemResponse;
 import com.icesi.ecommerce.entity.ItemEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
