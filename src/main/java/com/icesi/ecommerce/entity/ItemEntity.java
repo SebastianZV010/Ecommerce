@@ -32,13 +32,13 @@ public class ItemEntity {
     @Column(name = "price", nullable = false)
     private Double price;
     @Min(value = 0)
-    @Column(name = "stockQuantity", nullable = false)
+    @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity;
     @Column(name = "imageURL")
     private String imageURL;
-    @Column(name = "createdAt", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Calendar createdAt;
-    @Column(name = "updatedAt")
+    @Column(name = "updated_at")
     private Calendar updatedAt;
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
