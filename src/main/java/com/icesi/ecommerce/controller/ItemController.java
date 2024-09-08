@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/items")
@@ -40,5 +42,11 @@ public class ItemController {
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         itemService.deleteItem(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/brand/{brandId}")
+    public ResponseEntity<List<ItemResponse>> getItemsByBrand(@PathVariable Long brandId) {
+        List<ItemResponse> items = itemService.getItemsByBrand(brandId);
+        return new ResponseEntity<>(items, HttpStatus.OK);
     }
 }

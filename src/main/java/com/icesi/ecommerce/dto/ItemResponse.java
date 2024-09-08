@@ -11,7 +11,8 @@ public record ItemResponse(
     Integer stockQuantity,
     String imageURL,
     Calendar createdAt,
-    Calendar updatedAt
+    Calendar updatedAt,
+    String brandName
 
 ) implements Serializable{
     

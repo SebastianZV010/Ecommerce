@@ -4,11 +4,13 @@ package com.icesi.ecommerce.entity;
 import java.util.Calendar;
 import jakarta.validation.constraints.*;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
- 
+import lombok.Setter;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,5 +38,7 @@ public class ItemEntity {
     private Calendar createdAt;
     @Column(name = "updatedAt")
     private Calendar updatedAt;
-
+    @ManyToOne
+    @JoinColumn(name = "brand_id", nullable = false)
+    private BrandEntity brand;
 }

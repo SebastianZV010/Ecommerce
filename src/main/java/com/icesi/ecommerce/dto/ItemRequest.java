@@ -10,7 +10,7 @@ public record ItemRequest(
     Integer stockQuantity,
     String imageURL,
     Calendar createdAt,
-    Calendar updatedAt
-
+    Calendar updatedAt,
+    Long brandId
 ) implements Serializable{   
 }

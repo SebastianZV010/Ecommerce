@@ -1,5 +1,7 @@
 package com.icesi.ecommerce.service.impl;
 
+import com.icesi.ecommerce.entity.BrandEntity;
+import com.icesi.ecommerce.repository.IBrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +17,24 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class ItemService implements IItemService{
 
     private final IItemRepository itemRepository;
+    private final IBrandRepository brandRepository;
     private final ItemResponseMapper itemResponseMapper;
     private final ItemRequestMapper itemRequestMapper;
 
     @Override
     public ItemResponse createItem(ItemRequest itemRequest) {
+
+        BrandEntity brand = brandRepository.findById(itemRequest.brandId()).orElseThrow(() -> new RuntimeException("Brand not found"));
+
         ItemEntity itemEntity = itemRequestMapper.toItemEntity(itemRequest);
+        itemEntity.setBrand(brand);
         return itemResponseMapper.toItemResponse(itemRepository.save(itemEntity));
     }
 
@@ -37,12 +45,18 @@ public class ItemService implements IItemService{
 
     @Override
     public ItemResponse updateItem(Long id, ItemRequest itemRequest) {
+
         ItemEntity itemEntity = itemRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
+
+        BrandEntity brand = brandRepository.findById(itemRequest.brandId()).orElseThrow(() -> new RuntimeException("Brand not found"));
+
         itemEntity.setName(itemRequest.name());
         itemEntity.setDescription(itemRequest.description());
         itemEntity.setPrice(itemRequest.price());
         itemEntity.setStockQuantity(itemRequest.stockQuantity());
+        itemEntity.setBrand(brand);
         itemEntity.setImageURL(itemRequest.imageURL());
+
         itemEntity.setUpdatedAt(Calendar.getInstance());
         return itemResponseMapper.toItemResponse(itemRepository.save(itemEntity));
     }
@@ -55,5 +69,14 @@ public class ItemService implements IItemService{
         }
         itemRepository.deleteById(id);
     }
+
+    @Override
+    public List<ItemResponse> getItemsByBrand(Long brandId) {
+        List<ItemEntity> items = itemRepository.findByBrandId(brandId);
+        return items.stream()
+                .map(itemResponseMapper::toItemResponse)
+                .collect(Collectors.toList());
+    }
+
 
 }
